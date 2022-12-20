@@ -1,7 +1,7 @@
-﻿Сборка начата 08.12.2022 12:18:13.
+﻿Сборка начата 20.12.2022 19:41:46.
 Уровень детализации журнала: Normal.     1>Проект "C:\Users\ilyas\Desktop\универ\ЯП\SIA-2022\SIA-2022\SIA-2022.vcxproj" в узле 2 (целевые объекты Build).
      1>InitializeBuildStatus:
-         Создание "Debug\SIA-2022.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
+         Обращение к "Debug\SIA-2022.tlog\unsuccessfulbuild".
        ClCompile:
          Для всех выходных данных обновления не требуется.
          C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\bin\HostX86\x86\CL.exe /c /ZI /JMC /nologo /W3 /WX- /diagnostics:column /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /permissive- /Yu"pch.h" /Fp"Debug\SIA-2022.pch" /Fo"Debug\\" /Fd"Debug\vc143.pdb" /external:W3 /Gd /TP /analyze- /FC /errorReport:prompt Generator.cpp
@@ -32,4 +32,4 @@
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:00.89
+Прошло времени 00:00:01.22

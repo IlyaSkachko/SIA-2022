@@ -20,11 +20,6 @@ extern "C"
 
 	int __stdcall atoii(char* buffer, char* ptr)
 	{
-		/*if (ptr == nullptr)
-		{
-			std::cout << std::endl;
-		}
-		*/
 		int n = 0;
 		while (*ptr >= '0' && *ptr <= '9') {
 			n *= 10;

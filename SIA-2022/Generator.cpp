@@ -127,7 +127,7 @@ namespace Gener
 			}
 			else // ид(переменная) - через регистр
 			{
-				str = str + "mov al, " + e2.id + "\nmov " + e1.id + ", ax";
+				str = str + "mov al, " + e2.id + "\nmov " + e1.id + ", ax\n";
 			}
 		}
 		}
@@ -227,6 +227,18 @@ namespace Gener
 				case IT::IDDATATYPE::NUM:  str = str + " sdword " + itoS(e.value.vint);  break;
 				case IT::IDDATATYPE::STR:  str = str + " byte '" + string(e.value.vstr.str) + "', 0";  break;
 				case IT::IDDATATYPE::SYM:  str = str + " byte '" + char(e.value.symbol) + "', 0";  break;
+				case IT::IDDATATYPE::BOOL:  
+				{	
+					if (e.value.vbool.str[0] == 't' && e.value.vbool.str[1] == 'r' && e.value.vbool.str[2] == 'u' && e.value.vbool.str[3] == 'e')
+					{
+						str = str + " sdword " + "1 ";  break;
+					}
+					else
+					{
+						str = str + " sdword " + "0 ";  break;
+					}
+				}
+					
 				}
 				vlt.push_back(str);
 			}
@@ -237,6 +249,7 @@ namespace Gener
 				case IT::IDDATATYPE::NUM: str = str + " sdword 0";  break;
 				case IT::IDDATATYPE::STR: str = str + " dword ?";	break;
 				case IT::IDDATATYPE::SYM: str = str + " word ?";	break;
+				case IT::IDDATATYPE::BOOL: str = str + " sdword 0";	break;
 				}
 				vid.push_back(str);
 			}
@@ -348,6 +361,7 @@ namespace Gener
 						if (e.idtype == IT::IDTYPE::L)  str = str + "\npush offset " + e.id + "\ncall outsym\n";
 						else  str = str + "\npush " + e.id + "\ncall outsym\n";
 					}
+
 					break;
 				}
 			

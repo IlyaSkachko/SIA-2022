@@ -208,6 +208,9 @@ namespace Semantic
 						flag = true;
 					else if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype == IT::IDDATATYPE::SYM
 						&& tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::SYM)
+						flag = true;		
+					else if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype == IT::IDDATATYPE::STR
+						&& tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype == IT::IDDATATYPE::STR)
 						flag = true;
 				}
 				if (!flag)

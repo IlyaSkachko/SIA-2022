@@ -112,71 +112,71 @@ namespace Polish
 	}
 
 	bool __cdecl setPolishNotation(IT::IdTable& idtable, Log::LOG& log, int lextable_pos, ltvec& v)
+	{
+		//результирующий вектор
+		vector < LT::Entry > result;
+		// стек для сохранения операторов
+		stack < LT::Entry > s;
+		// флаг вызова функции
+		bool ignore = false;
+
+		for (unsigned i = 0; i < v.size(); i++)
+		{
+			if (ignore)	// вызов функции считаем подставляемым значением и заносим в результат
 			{
-				 //результирующий вектор
-				vector < LT::Entry > result;
-				// стек для сохранения операторов
-				stack < LT::Entry > s;
-				// флаг вызова функции
-				bool ignore = false;
-		
-				for (unsigned i = 0; i < v.size(); i++)
-				{
-					if (ignore)	// вызов функции считаем подставляемым значением и заносим в результат
-					{
-						result.push_back(v[i]);
-						if (v[i].lexema == LEX_RIGHTTHESIS) 
-							ignore = false;
-						continue;
-					}
-					int priority = getPriority(v[i]); // его приоритет
-
-					if (v[i].lexema == LEX_LEFTHESIS || v[i].lexema == LEX_RIGHTTHESIS || v[i].lexema == LEX_PLUS || v[i].lexema == LEX_MINUS || v[i].lexema == LEX_STAR || v[i].lexema == LEX_DIRSLASH || v[i].lexema == LEX_LEFT || v[i].lexema == LEX_RIGHT)
-					{
-						if (s.empty() || v[i].lexema == LEX_LEFTHESIS)
-						{
-							s.push(v[i]);
-							continue;
-						}
-
-						if (v[i].lexema == LEX_RIGHTTHESIS)
-						{
-							//выталкивание элементов до  скобки
-							while (!s.empty() && s.top().lexema != LEX_LEFTHESIS)
-							{
-								result.push_back(s.top());
-								s.pop();
-							}
-							if (!s.empty() && s.top().lexema == LEX_LEFTHESIS)
-								s.pop();
-							continue;
-						}
-						//выталкивание элем с большим/равным приоритетом в результат
-						while (!s.empty() && getPriority(s.top()) >= priority)
-						{
-							result.push_back(s.top());
-							s.pop();
-						}
-						s.push(v[i]);
-					}
-
-					if (v[i].lexema == LEX_LITERAL|| v[i].lexema == LEX_ID) // идентификатор, идентификатор функции или литерал
-					{
-						if (idtable.table[v[i].idxTI].idtype == IT::IDTYPE::F || idtable.table[v[i].idxTI].idtype == IT::IDTYPE::S)
-							ignore = true;
-						result.push_back(v[i]);	// операнд заносим в результирующий вектор
-					}
-					if (v[i].lexema != LEX_LEFTHESIS & v[i].lexema != LEX_RIGHTTHESIS & v[i].lexema != LEX_PLUS & v[i].lexema != LEX_MINUS & v[i].lexema != LEX_STAR & v[i].lexema != LEX_DIRSLASH &v[i].lexema != LEX_ID & v[i].lexema != LEX_LITERAL & v[i].lexema != LEX_LEFT & v[i].lexema != LEX_RIGHT)
-					{
-						Log::writeError(log.stream, Error::GetError(1));
-						return false;
-					}
-				}
-		
-				while (!s.empty()) { result.push_back(s.top()); s.pop(); }
-				v = result;
-				return true;
+				result.push_back(v[i]);
+				if (v[i].lexema == LEX_RIGHTTHESIS)
+					ignore = false;
+				continue;
 			}
+			int priority = getPriority(v[i]); // его приоритет
+
+			if (v[i].lexema == LEX_LEFTHESIS || v[i].lexema == LEX_RIGHTTHESIS || v[i].lexema == LEX_PLUS || v[i].lexema == LEX_MINUS || v[i].lexema == LEX_STAR || v[i].lexema == LEX_DIRSLASH || v[i].lexema == LEX_LEFT || v[i].lexema == LEX_RIGHT)
+			{
+				if (s.empty() || v[i].lexema == LEX_LEFTHESIS)
+				{
+					s.push(v[i]);
+					continue;
+				}
+
+				if (v[i].lexema == LEX_RIGHTTHESIS)
+				{
+					//выталкивание элементов до  скобки
+					while (!s.empty() && s.top().lexema != LEX_LEFTHESIS)
+					{
+						result.push_back(s.top());
+						s.pop();
+					}
+					if (!s.empty() && s.top().lexema == LEX_LEFTHESIS)
+						s.pop();
+					continue;
+				}
+				//выталкивание элем с большим/равным приоритетом в результат
+				while (!s.empty() && getPriority(s.top()) >= priority)
+				{
+					result.push_back(s.top());
+					s.pop();
+				}
+				s.push(v[i]);
+			}
+
+			if (v[i].lexema == LEX_LITERAL || v[i].lexema == LEX_ID) // идентификатор, идентификатор функции или литерал
+			{
+				if (idtable.table[v[i].idxTI].idtype == IT::IDTYPE::F || idtable.table[v[i].idxTI].idtype == IT::IDTYPE::S)
+					ignore = true;
+				result.push_back(v[i]);	// операнд заносим в результирующий вектор
+			}
+			if (v[i].lexema != LEX_LEFTHESIS & v[i].lexema != LEX_RIGHTTHESIS & v[i].lexema != LEX_PLUS & v[i].lexema != LEX_MINUS & v[i].lexema != LEX_STAR & v[i].lexema != LEX_DIRSLASH & v[i].lexema != LEX_ID & v[i].lexema != LEX_LITERAL & v[i].lexema != LEX_LEFT & v[i].lexema != LEX_RIGHT)
+			{
+				Log::writeError(log.stream, Error::GetError(1));
+				return false;
+			}
+		}
+
+		while (!s.empty()) { result.push_back(s.top()); s.pop(); }
+		v = result;
+		return true;
+	}
 		
 }
 

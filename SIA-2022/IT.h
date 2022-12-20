@@ -25,12 +25,13 @@
 
 namespace IT
 {	
-	enum IDDATATYPE { NUM = 1, STR = 2, PROC = 3, SYM = 4, BOOL = 5, UNDEF };//типы данных идентификаторов: числовой, строковый, без типа(дл€ процедур), неопределенный
+	enum IDDATATYPE { NUM = 1, STR = 2, PROC = 3, SYM = 4, BOOL = 5, UNDEF };//типы данных идентификаторов: числовой, строковый, символьный, логический ,без типа(дл€ процедур), неопределенный
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4, S = 5 };	//типы идентификаторов: переменна€, функци€, параметр, литерал, стандартна€ функци€
 	enum STDFNC { F_CONCAT, F_LENGHT, F_ATOII, F_NOT_STD };	//стандартные функции
 	static const IDDATATYPE CONCAT_PARAMS[] = { IT::IDDATATYPE::STR, IT::IDDATATYPE::STR };//параметры функции  concatstr
 	static const IDDATATYPE LENGHT_PARAMS[] = { IT::IDDATATYPE::STR };//параметры функции strlen
 	static const IDDATATYPE ATOII_PARAMS[] = { IT::IDDATATYPE::STR };//параметры ф-ции atoi
+
 	struct Entry
 	{
 		union
@@ -63,6 +64,7 @@ namespace IT
 			this->value.vint = NUM_DEFAULT;
 			this->value.vstr.len = NULL;
 			this->value.symbol = NULL;
+			this->value.vbool.len = NULL;
 			this->value.params.count = NULL;
 		};
 		Entry(char* id, int idxLT, IDDATATYPE datatype, IDTYPE idtype) //конструктор с параметрами
@@ -79,6 +81,7 @@ namespace IT
 		int size;		//текущий размер таблицы идентификаторов < maxsize
 		Entry* table;	//массив строк таблицы идентификаторов
 	};
+
 	IdTable Create(int size = NULL);	//Ємкость таблицы идентификаторов < TI_MAXSIZE
 	void Add(					//добавить строку в таблицу идентификаторов
 		IdTable &idtable,		//экземпл€р таблицы идентификаторов

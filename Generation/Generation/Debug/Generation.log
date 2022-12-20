@@ -1,10 +1,10 @@
-﻿Сборка начата 08.12.2022 12:23:00.
+﻿Сборка начата 20.12.2022 19:44:01.
 Уровень детализации журнала: Normal.     1>Проект "C:\Users\ilyas\Desktop\универ\ЯП\SIA-2022\Generation\Generation\Generation.vcxproj" в узле 2 (целевые объекты Build).
      1>InitializeBuildStatus:
          Создание "Debug\Generation.tlog\unsuccessfulbuild", так как было задано "AlwaysCreate".
        _MASM:
          Assembling Gen.asm...
-         cmd.exe /C "C:\Users\ilyas\AppData\Local\Temp\tmpbc6db5532c6c4511a1a2edccededc33d.cmd"
+         cmd.exe /C "C:\Users\ilyas\AppData\Local\Temp\tmp35b052b77548449ba94aa0de91eca206.cmd"
          ml.exe /c /nologo /Zi /Fo"Debug\Gen.obj" /W3 /errorReport:prompt  /TaGen.asm
        ClCompile:
          Для всех выходных данных обновления не требуется.
@@ -21,4 +21,4 @@
     Предупреждений: 0
     Ошибок: 0
 
-Прошло времени 00:00:00.46
+Прошло времени 00:00:00.54
