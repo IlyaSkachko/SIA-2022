@@ -1,4 +1,4 @@
 # SIA-2022
+Translator from SIA-2022 to Assembler
 
-
-Транслятор с SIA-2022 в Assembler
+SIA-2022 is my programming language
